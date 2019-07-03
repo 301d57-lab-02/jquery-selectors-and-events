@@ -1,0 +1,48 @@
+header h1, header select {
+  text-align: center;
+}
+
+header h1 {
+  font-size: 45px;
+  margin: 20px 0px;
+
+}
+
+header {
+  width: 100%;
+}
+
+main {
+  overflow: auto;
+}
+
+select {
+  display: block;
+  margin: 0 auto;
+}
+
+img {
+  width: 375px;
+  height: 300px;
+}
+
+section {
+  float: left;
+  margin: 20px 10px;
+  width: 380px;
+  height: 330px;
+}
+
+body {
+  position: relative;
+}
+
+/* footer {
+  position: absolute;
+  bottom: 0%;
+  right: 50%;
+} */
+
+
+
+
