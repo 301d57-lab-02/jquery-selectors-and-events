@@ -1,9 +1,11 @@
 'use strict';
 
+// Global Variables
 let allImages = [];
 let allKeyWords = [];
 
-// Create a constructor for image objects
+// Constructor for image objects
+// --------------------------------------------------
 const ImgObj = function(image_url, title, description, keyword, horns) {
   this.image_url = image_url;
   this.title = title;
@@ -13,27 +15,35 @@ const ImgObj = function(image_url, title, description, keyword, horns) {
   allImages.push(this);
 };
 
-// Read the JSON file
+// Read the JSON file from local directory
+// --------------------------------------------------
 function readJSON(filePath, fileType){
   $.get(filePath, fileType).then(results => {
     results.forEach(img => {
+      // Instantiate new object using ImgObj constructor
       new ImgObj(img.image_url, img.title, img.description, img.keyword, img.horns);
+
       // If img.keyword does not exists in allKeyWords, push it into allKeyWords.
       if(!allKeyWords.includes(img.keyword)) {
         allKeyWords.push(img.keyword);
       }
     });
 
+    // Render all of the images
     allImages.forEach(img => {
       renderWithJquery(img);
     });
+
+    // Always hide the section template element
     $('#photo-template').hide();
-    // $('body').css('height', $('html').css('height'));
+
+    // Poplulate dropdown with keywords
     populateDropDown();
   });
 }
 
 // Use jQuery to create a HTML photo element
+// --------------------------------------------------
 function renderWithJquery(imgObject) {
   const $newElement = $('<section></section>');
   const newImgTemplate = $('#photo-template').html();
@@ -49,6 +59,7 @@ function renderWithJquery(imgObject) {
 }
 
 // Populate the select dropdown with keywords
+// --------------------------------------------------
 function populateDropDown() {
   const $dropdown = $('select');
 
@@ -58,13 +69,28 @@ function populateDropDown() {
 }
 
 // Create an event handler linked to the dropdown
+// --------------------------------------------------
 $('select').on('change', function(){
+  // Get value from HTML dropdown
   let $selection = $(this).val();
+
+  // Hide all section elements
   $('section').hide();
-  $(`section[keyword="${$selection}"]`).show();
+
+  // Check if default has been selected from dropdown
+  if ($selection === 'default') {
+    $('section').show(); // show all
+  } else {
+    $(`section[keyword="${$selection}"]`).show(); // show filtered
+  }
+
+  // Always hide the section template element
+  $('#photo-template').hide();
 });
 
 // Run on Ready
+// --------------------------------------------------
 $(document).ready(function() {
+  // Read JSON data from local data directory
   readJSON('./data/page-1.json', 'json');
 });
