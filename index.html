@@ -4,33 +4,43 @@
 <html>
   <head>
     <title>Lab 2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS files -->
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/base.css">
-    <link rel="stylesheet" href="./css/layouts.css">
     <link rel="stylesheet" href="./css/modules.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/layouts.css">
 
-    <link href="https://fonts.googleapis.com/css?family=Philosopher&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Spirax&display=swap" rel="stylesheet">
+
+    
   </head>
 
   <body>
     <header>
-      <h1>The Gallery of Horns</h1>
-      <select>
-        <option value="default">Filter by Keyword</option>
-      </select>
+      <div class="background-img">
+        <h1>The Gallery of Horns</h1>
+      </div>
+      <div class="select-container">
+        <div class="custom-dropdown">
+          <select>
+            <option value="default">Filter by Keyword</option>
+          </select>
+        </div>
+      </div>
     </header>
 
     <main>
       <section id="photo-template">
-        <h2></h2>
         <img src="" alt="">
+        <h2></h2>
         <p></p>
       </section>
     </main>
     
     <footer>
-      &copy; 2018 Code Fellows
+      &copy; 2019 Code Fellows
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

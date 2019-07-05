@@ -1,0 +1,140 @@
+header h1, header select {
+  text-align: center;
+}
+
+header .background-img {
+  height: 215px;
+  background-image: url(/img/land-and-sea.png);
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+header h1 {
+  font-size: 105px;
+  color: #222;
+}
+
+header {
+  width: 100%;
+}
+
+main {
+  overflow: auto;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 334px;
+}
+
+.select-container {
+  text-align: center;
+}
+
+/* START - Custom dropdown */
+/* https://codepen.io/silverdrop/pen/msrcE */
+.custom-dropdown {
+  font-size: 1.2em;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 10px; /* demo only */
+}
+
+.custom-dropdown select {
+  background-color: #e2e6e6;
+  color: #333;
+  font-size: inherit;
+  padding: .5em;
+  padding-right: 2.5em;	
+  border: 0;
+  margin: 0;
+  border-radius: 3px;
+  text-indent: 0.01px;
+  text-overflow: '';
+  -webkit-appearance: button; /* hide default arrow in chrome OSX */
+}
+
+.custom-dropdown::before,
+.custom-dropdown::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.custom-dropdown::after { /*  Custom dropdown arrow */
+  content: "\25BC";
+  height: 1em;
+  font-size: .625em;
+  line-height: 1;
+  right: 1.2em;
+  top: 50%;
+  margin-top: -.5em;
+}
+
+.custom-dropdown::before { /*  Custom dropdown arrow cover */
+  width: 2em;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 0 3px 3px 0;
+}
+
+.custom-dropdown select[disabled] {
+  color: rgba(0,0,0,.3);
+}
+
+.custom-dropdown select[disabled]::after {
+  color: rgba(0,0,0,.1);
+}
+
+.custom-dropdown::before {
+  background-color: rgba(0,0,0,.15);
+}
+
+.custom-dropdown::after {
+  color: rgba(0,0,0,.4);
+}
+/* END - Custom dropdown */
+
+img {
+  width: 300px;
+  height: 225px;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+section {
+  float: left;
+  margin: 15px;
+  width: 310px;
+  height: 320px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 5px 10px 8px #888888;
+  text-align: center;
+}
+
+section h2 {
+  font-size: 25px;
+  width: 83%;
+  font-weight: bold;
+  margin: auto;
+  padding: 8px;
+  border-top: 1px solid #ccc;
+}
+
+section p {
+  font-size: 14px;
+  padding: 0px 5px;
+}
+
+footer {
+  text-align: right;
+  margin-right: 25px;
+  margin-top: 100px;
+}
+
