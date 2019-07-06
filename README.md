@@ -61,13 +61,13 @@ Actual time needed to complete: 0:13
 ## Feature 3
 Number and name of feature: #3 Styling with flexbox
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 0:45 
 
-Start time: _____
+Start time: 3:00 PM
 
-Finish time: _____
+Finish time: 3:42 PM
 
-Actual time needed to complete: _____
+Actual time needed to complete: 0:42
 
 ## Feature 4
 Number and name of feature: #4 Sort the images

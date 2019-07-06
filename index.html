@@ -17,9 +17,9 @@
 
   <!-- Script Template -->
   <script id="img-template" type="text/x-handlebars-template">
-    <section class="entry">
+    <section keyword={{keyword}}>
       <img src={{image_url}}>
-      <h2>{{name}}</h2>
+      <h2>{{title}}</h2>
       <p class="body">
         {{description}}
       </p>
@@ -33,10 +33,21 @@
       </div>
       <div class="select-container">
         <div class="custom-dropdown">
-          <select>
+          <select id="filter">
             <option value="default">Filter by Keyword</option>
           </select>
         </div>
+
+        <div class="select-container2">
+          <div class="custom-dropdown">
+            <select id="sort">
+              <option value="default">Sort by</option>
+              <option value="title">Title</option>
+              <option value="horns">Horns</option>
+            </select>
+          </div>
+        </div>
+        
         <div id="pagination">
           <ul>
             <li><a href="#">Page 1</a></li>

@@ -1,10 +1,9 @@
 'use strict';
 
 // Global Variables
-let allImagesPg1 = [];
-let allImagesPg2 = [];
-let allKeyWordsPg1 = [];
-let allKeyWordsPg2 = [];
+let allImagesArray = [];
+let allKeyWords = [];
+let pageTracker = 0;
 
 // Constructor for image objects
 // --------------------------------------------------
@@ -20,28 +19,49 @@ const ImgObj = function(image_url, title, description, keyword, horns, allImages
 // Read the JSON file from local directory
 // --------------------------------------------------
 function readJSON(filePath, fileType, allImages, allKeyWords){
+  let tempImgArray = [];
+  let tempKeywordArray = []
   $.get(filePath, fileType).then(results => {
     results.forEach(img => {
       // Instantiate new object using ImgObj constructor
-      new ImgObj(img.image_url, img.title, img.description, img.keyword, img.horns, allImages);
+      new ImgObj(img.image_url, img.title, img.description, img.keyword, img.horns, tempImgArray);
 
       // If img.keyword does not exists in allKeyWords, push it into allKeyWords.
-      if(!allKeyWords.includes(img.keyword)) {
-        allKeyWords.push(img.keyword);
+      if(!tempKeywordArray.includes(img.keyword)) {
+        tempKeywordArray.push(img.keyword);
       }
     });
-    showPage(allImages, allKeyWords);
+    pageTracker++;
+    allImagesArray.push(tempImgArray);
+    allKeyWords.push(tempKeywordArray);
+    showPage(tempImgArray, tempKeywordArray);
+
+
   });
+
+  return;
 }
 
 function showPage(allImages, allKeyWords) {
   // Render all of the images
 
   let $divEle = $('<div></div>');
+  allImagesArray[pageTracker-1].sort((a, b) => {
+    if (a.title.toUpperCase() > b.title.toUpperCase()) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
+
   allImages.forEach(img => {
     renderWithHandleBars(img, $divEle);
   });
   $('main').append($divEle);
+
+  if(pageTracker > 1) {
+    $divEle.hide();
+  }
   // Always hide the section template element
   $('#photo-template').hide();
 
@@ -68,7 +88,7 @@ function renderWithJquery(imgObject, $parentEle) {
 // Populate the select dropdown with keywords
 // --------------------------------------------------
 function populateDropDown(allKeyWords) {
-  const $dropdown = $('select');
+  const $dropdown = $('#filter');
   $dropdown.empty();
   $dropdown.append($('<option>', {value: 'default', text: 'Filter by Keyword'}));
   allKeyWords.forEach(keyword => {
@@ -78,7 +98,7 @@ function populateDropDown(allKeyWords) {
 
 // Create an event handler linked to the dropdown
 // --------------------------------------------------
-$('select').on('change', function(){
+$('#filter').on('change', function(){
   // Get value from HTML dropdown
   let $selection = $(this).val();
 
@@ -96,24 +116,66 @@ $('select').on('change', function(){
   $('#photo-template').hide();
 });
 
+
+
 $('#pagination').on('click', function(event){
   event.preventDefault();
   let page = $(event.target).html();
-  //console.log(page);
   if(page === 'Page 1'){
+    pageTracker = 1;
     $('main > div').hide();
-    $('main div:nth-child(2)').show();
-    populateDropDown(allKeyWordsPg1);
+    $('div:nth-child(2)').show();
+    populateDropDown(allKeyWords[0]);
   }
   if(page === 'Page 2'){
+    pageTracker = 2;
     $('main > div').hide();
-    $('main div:nth-child(3)').show();
-    populateDropDown(allKeyWordsPg2);
+    $('div:nth-child(3)').show();
+    populateDropDown(allKeyWords[1]);
   }
 });
 
 
+$('#sort').on('change', function(){
+  // Get value from HTML dropdown
+  let $selection = $(this).val();
 
+  if ($selection === 'title') {
+    allImagesArray[pageTracker-1].sort((a, b) => {
+      if (a.title.toUpperCase() > b.title.toUpperCase()) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+    let $divEle = $(`main div:nth-child(${pageTracker+1})`);
+    $divEle.children().remove();
+
+    allImagesArray[pageTracker-1].forEach(imgObj => {
+      renderWithHandleBars(imgObj,$divEle);
+    });
+  }
+
+  if ($selection === 'horns') {
+    allImagesArray[pageTracker-1].sort((a, b) => {
+      if (a.horns > b.horns) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+
+    let $divEle = $(`main div:nth-child(${pageTracker+1})`);
+    $divEle.children().remove();
+
+    allImagesArray[pageTracker-1].forEach(imgObj => {
+      renderWithHandleBars(imgObj,$divEle);
+    });
+  }
+
+  // Always hide the section template element
+  $('#photo-template').hide();
+});
 
 
 function renderWithHandleBars(imgObject, $parentEle) {
@@ -121,34 +183,21 @@ function renderWithHandleBars(imgObject, $parentEle) {
   const template = Handlebars.compile(source);
 
   const context = {
+    keyword: imgObject.keyword,
     image_url: imgObject.image_url,
-    name: imgObject.name,
+    title: imgObject.title,
     description: imgObject.description
   };
 
   const html = template(context);
-
   $parentEle.append(html);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Run on Ready
 // --------------------------------------------------
 $(document).ready(function() {
   // Read JSON data from local data directory
-  readJSON('./data/page-1.json', 'json', allImagesPg1, allKeyWordsPg1);
-  readJSON('./data/page-2.json', 'json', allImagesPg2, allKeyWordsPg2);
+  readJSON('./data/page-1.json', 'json', allImagesArray, allKeyWords);
+  readJSON('./data/page-2.json', 'json', allImagesArray, allKeyWords);
 });
+

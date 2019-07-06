@@ -22,11 +22,14 @@ header {
 }
 
 main {
-  overflow: auto;
   margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 334px;
+  display: flex;
+}
+
+main div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .select-container {
@@ -108,7 +111,7 @@ img {
 }
 
 section {
-  float: left;
+  /* float: left; */
   margin: 15px;
   width: 310px;
   height: 320px;
