@@ -24,17 +24,65 @@ header {
 main {
   margin-top: 10px;
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 main div {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1020px;
 }
 
 .select-container {
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
+
+#pagination {
+  /* background-color: #e2e6e6; */
+  border-radius: 5px;
+}
+
+#pagination ul {
+  display: flex;
+}
+
+#pagination ul > li {
+  list-style-type: none;
+  display: flex;
+}
+
+#pagination ul > li > a {
+  text-decoration: none;
+  font-size: 27px;
+  /* transition: background-color 1s ease-in-out; */
+  padding: 10px;
+  border-radius: 5px;
+  color: #333;
+}
+
+#pagination ul > li > a:active, #pagination ul > li > a:visited {
+  color: #333;
+  background-color: red;
+}
+
+#pagination ul > li > a:hover {
+  /* background-color: #b5b6b6; */
+  /* transition: background-color 1s ease-in-out; */
+}
+
+.active {
+  background-color: #b5b6b6;
+}
+
+
+
 
 /* START - Custom dropdown */
 /* https://codepen.io/silverdrop/pen/msrcE */
@@ -114,7 +162,7 @@ section {
   /* float: left; */
   margin: 15px;
   width: 310px;
-  height: 320px;
+  height: 331px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 5px 10px 8px #888888;

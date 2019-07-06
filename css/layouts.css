@@ -1,16 +1,3 @@
-/* @media (min-width: 768px) {
-  main {
-    width: 682px;
-  }
-}
-
-@media (min-width: 1045px) {
-  main {
-    width: 1024px;
-  }
-} */
-
-
 @media (max-width: 1000px) {
   header > div > h1 {
     font-size: 90px;
