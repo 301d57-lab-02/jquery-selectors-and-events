@@ -56,6 +56,8 @@ function showInitialPage(allImages, allKeyWords) {
 
   $('main').append($divEle);
 
+  $('#pagination > ul > li:nth-child(2)').children().addClass('active');
+
   if (totalPageTracker > 1) {
     $divEle.hide();
   } else {
@@ -150,7 +152,6 @@ $('#sort').on('change', function() {
   let $selection = $(this).val();
 
   console.log($selection);
-  console.log(pageTracker);
 
   if ($selection === 'title') {
     sortImagesByObjProp(allImagesArray[pageTracker - 1], 'title');
@@ -159,7 +160,7 @@ $('#sort').on('change', function() {
     sortImagesByObjProp(allImagesArray[pageTracker - 1], 'horns');
     renderSortedImages();
   } else {
-    console.log('Something went wrong with custom sort!');
+    console.log('Default option was selected.');
   }
 });
 
@@ -169,18 +170,20 @@ $('#pagination').on('click', function(event) {
   event.preventDefault();
 
   let page = $(event.target).html();
+  $('#pagination a').removeClass('active');
+  $(event.target).addClass('active');
 
   $('main > div').hide(); // hide all containers that hold images
   $('section').show(); // show all images
 
   switch (page) {
-  case 'Page 1':
+  case '1':
     pageTracker = 1;
     $('main div:nth-child(1)').show();
     populateDropDown(allKeyWords[0]);
     break;
 
-  case 'Page 2':
+  case '2':
     pageTracker = 2;
     $('main div:nth-child(2)').show();
     populateDropDown(allKeyWords[1]);
