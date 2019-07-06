@@ -135,7 +135,7 @@ $('#pagination').on('click', function(event){
   }
 });
 
-
+// Custom sort event handler for titles and horns
 $('#sort').on('change', function(){
   // Get value from HTML dropdown
   let $selection = $(this).val();
