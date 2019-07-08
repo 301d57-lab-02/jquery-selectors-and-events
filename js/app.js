@@ -96,6 +96,10 @@ function populateDropDown(allKeyWords) {
   });
 }
 
+function resetSortByDropdown() {
+  $('#sort').val('default');
+}
+
 // Sort images by object property, title or horns
 // Custom ascending string & number sort method
 // --------------------------------------
@@ -131,6 +135,8 @@ function renderSortedImages() {
 // Event Listener - On change, Filter by animal dropdown
 // ================================================
 $('#filter').on('change', function() {
+  resetSortByDropdown();
+
   // Get value from HTML dropdown
   let $selection = $(this).val();
 
@@ -151,14 +157,14 @@ $('#sort').on('change', function() {
   // Get value from HTML dropdown
   let $selection = $(this).val();
 
-  console.log($selection);
-
   if ($selection === 'title') {
     sortImagesByObjProp(allImagesArray[pageTracker - 1], 'title');
-    renderSortedImages()
+    renderSortedImages();
+    populateDropDown(allKeyWords[pageTracker - 1]);
   } else if ($selection === 'horns') {
     sortImagesByObjProp(allImagesArray[pageTracker - 1], 'horns');
     renderSortedImages();
+    populateDropDown(allKeyWords[pageTracker - 1]);
   } else {
     console.log('Default option was selected.');
   }
@@ -168,6 +174,8 @@ $('#sort').on('change', function() {
 // ========================================
 $('#pagination').on('click', function(event) {
   event.preventDefault();
+
+  resetSortByDropdown();
 
   let page = $(event.target).html();
   $('#pagination a').removeClass('active');
